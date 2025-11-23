@@ -11,58 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassengerRequest {
-
-    public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-	
-	  @NotBlank(message = "Passenger category is required")
+	@NotBlank(message = "Passenger category is required")
 	    private String fareCategory;
-
-	public String getFareCategory() {
-		return fareCategory;
-	}
-
-	  public void setFareCategory(String fareCategory) {
-		  this.fareCategory = fareCategory;
-	  }
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public String getMeal() {
-		return meal;
-	}
-
-	public void setMeal(String meal) {
-		this.meal = meal;
-	}
-
-	public Integer getSeatNumber() {
-		return seatNumber;
-	}
-
-	public void setSeatNumber(Integer seatNumber) {
-		this.seatNumber = seatNumber;
-	}
-
+	
 	@NotBlank(message = "Passenger name is required")
     private String name;
 

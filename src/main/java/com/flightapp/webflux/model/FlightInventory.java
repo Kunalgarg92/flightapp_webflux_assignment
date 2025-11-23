@@ -13,7 +13,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 @Document(collection = "flight_inventory")
 public class FlightInventory {
 
@@ -74,66 +76,5 @@ public class FlightInventory {
         message = "Fare category must be one of: STUDENT, SENIOR, REGULAR, ARMY, CORPORATE"
     )
     private String fareCategory;
-
-    // Getters and Setters
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) { this.id = id; }
-
-    public String getAirlineName() {
-        return airlineName;
-    }
-    public void setAirlineName(String airlineName) { this.airlineName = airlineName; }
-
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-    public void setFlightNumber(String flightNumber) { this.flightNumber = flightNumber; }
-
-    public String getFromPlace() {
-        return fromPlace;
-    }
-    public void setFromPlace(String fromPlace) { this.fromPlace = fromPlace; }
-
-    public String getToPlace() {
-        return toPlace;
-    }
-    public void setToPlace(String toPlace) { this.toPlace = toPlace; }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-    public void setDepartureTime(LocalDateTime departureTime) { this.departureTime = departureTime; }
-
-    public LocalDateTime getArrivalTime() {
-        return arrivalTime;
-    }
-    public void setArrivalTime(LocalDateTime arrivalTime) { this.arrivalTime = arrivalTime; }
-
-    public int getTotalSeats() {
-        return totalSeats;
-    }
-    public void setTotalSeats(int totalSeats) { this.totalSeats = totalSeats; }
-
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-    public void setAvailableSeats(int availableSeats) { this.availableSeats = availableSeats; }
-
-    public double getPrice() {
-        return price;
-    }
-    public void setPrice(double price) { this.price = price; }
-
-    public double getSpecialFare() {
-        return specialFare;
-    }
-    public void setSpecialFare(double specialFare) { this.specialFare = specialFare; }
-
-    public String getFareCategory() {
-        return fareCategory;
-    }
-    public void setFareCategory(String fareCategory) { this.fareCategory = fareCategory; }
 }
 

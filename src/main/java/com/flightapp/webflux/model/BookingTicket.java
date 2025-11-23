@@ -8,6 +8,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Data;
+
+@Data
 @Document(collection = "booking_ticket")
 public class BookingTicket {
 
@@ -40,86 +43,4 @@ public class BookingTicket {
 
     @Field("passengers")
     private List<Passenger> passengers = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPnr() {
-        return pnr;
-    }
-
-    public void setPnr(String pnr) {
-        this.pnr = pnr;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    
-
-    public String getFlightId() {
-		return flightId;
-	}
-
-	public void setFlightId(String flightId) {
-		this.flightId = flightId;
-	}
-
-	public Instant getBookingTime() {
-        return bookingTime;
-    }
-
-    public void setBookingTime(Instant bookingTime) {
-        this.bookingTime = bookingTime;
-    }
-
-    public int getNumberOfSeats() {
-        return numberOfSeats;
-    }
-
-    public void setNumberOfSeats(int numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public boolean isCancelled() {
-        return cancelled;
-    }
-
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
-
-    public List<Passenger> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(List<Passenger> passengers) {
-        this.passengers = passengers;
-    }
 }
