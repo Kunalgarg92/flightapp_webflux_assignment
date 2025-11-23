@@ -3,10 +3,12 @@ package com.flightapp.webflux.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,6 +43,12 @@ class BookingServiceTest {
 
     @InjectMocks
     private BookingServiceImplementation service;
+    
+    @BeforeEach
+    void setup() {
+        when(bookingRepo.findByFlightId(anyString()))
+                .thenReturn(Flux.empty());
+    }
 
     @Test
     void testBookingFailsWhenSeatNotAvailable() {
@@ -73,7 +81,9 @@ class BookingServiceTest {
         flight.setTotalSeats(180);
 
         when(flightRepo.findById("1")).thenReturn(Mono.just(flight));
-        when(passengerRepo.findBookedSeatsForFlight(eq("1"), anyList())).thenReturn(Flux.empty());
+        lenient().when(passengerRepo.findBookedSeatsForFlight(anyString(), anyList()))
+        .thenReturn(Flux.empty());
+
 
         BookingTicket saved = new BookingTicket();
         saved.setId("101");

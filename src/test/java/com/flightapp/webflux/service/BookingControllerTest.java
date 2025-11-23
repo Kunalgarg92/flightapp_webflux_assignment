@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webflux.test.autoconfigure.WebFluxTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -14,11 +15,13 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import com.flightapp.webflux.Controller.BookingController;
 import com.flightapp.webflux.DTO.BookingResponse;
 import com.flightapp.webflux.Service.BookingService;
+import com.flightapp.webflux.exception.GlobalErrorHandler;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @WebFluxTest(controllers = BookingController.class)
+@Import(GlobalErrorHandler.class)
 class BookingControllerTest {
 
     @Autowired
