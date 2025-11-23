@@ -26,7 +26,7 @@ public class Passenger {
     private int seatNumber;
 
     @Field("booking_id")
-    private String bookingId;  // 🔥 MongoDB ref should be String, not Long
+    private String bookingId; 
 
     @Field("fare_category")
     private String fareCategory;
@@ -37,7 +37,6 @@ public class Passenger {
     @Field("fare_message")
     private String fareMessage;
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
