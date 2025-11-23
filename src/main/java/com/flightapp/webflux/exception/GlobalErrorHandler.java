@@ -150,6 +150,8 @@ public class GlobalErrorHandler {
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
+    
+    
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrrorResponse> handleNotFound(ResourceNotFoundException ex, ServerHttpRequest request
 ) {
