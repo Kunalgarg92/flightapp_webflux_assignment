@@ -16,9 +16,41 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.web.bind.support.WebExchangeBindException;
+
+
 
 @RestControllerAdvice
 public class GlobalErrorHandler {
+	
+
+	@ExceptionHandler(WebExchangeBindException.class)
+	public ResponseEntity<Object> handleWebFluxValidation(WebExchangeBindException ex, ServerHttpRequest request) {
+
+	    Map<String, String> fieldErrors = new HashMap<>();
+
+	    ex.getFieldErrors().forEach(err -> {
+	        fieldErrors.put(err.getField(), err.getDefaultMessage());
+	    });
+
+	    String joined = fieldErrors.entrySet().stream()
+	            .map(e -> e.getKey() + ": " + e.getValue())
+	            .collect(Collectors.joining("; "));
+
+	    ErrrorResponse body = new ErrrorResponse(
+	            HttpStatus.BAD_REQUEST.value(),
+	            "Bad Request",
+	            joined,
+	            request.getURI().getPath()
+	    );
+
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("errorResponse", body);
+	    response.put("errors", fieldErrors);
+
+	    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
+
 	
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationErrors(MethodArgumentNotValidException ex,ServerHttpRequest request
