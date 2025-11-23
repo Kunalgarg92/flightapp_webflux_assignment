@@ -3,6 +3,9 @@ Flight Management WebFlux Application
 A fully reactive Airline Flight Booking Management System built using Spring WebFlux, designed to demonstrate high-quality code standards, complete validation workflows, accurate exception handling, and robust architecture.
 The project includes 92%+ unit test coverage and follows SonarQube quality rules to ensure clean, maintainable, and production-grade code.
 
+<img width="1122" height="678" alt="image" src="https://github.com/user-attachments/assets/226e7f4e-d466-4b18-bd53-4cacfda7877a" />
+
+
  Project Expectations & Objectives
 
 This project has been built with the following core goals:
