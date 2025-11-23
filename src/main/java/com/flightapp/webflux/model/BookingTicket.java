@@ -21,7 +21,7 @@ public class BookingTicket {
     private String email;
 
     @Field("flight_id")
-    private Long flightId;
+    private String flightId;
 
     @Field("booking_time")
     private Instant bookingTime;
@@ -65,15 +65,17 @@ public class BookingTicket {
         this.email = email;
     }
 
-    public Long getFlightId() {
-        return flightId;
-    }
+    
 
-    public void setFlightId(Long flightId) {
-        this.flightId = flightId;
-    }
+    public String getFlightId() {
+		return flightId;
+	}
 
-    public Instant getBookingTime() {
+	public void setFlightId(String flightId) {
+		this.flightId = flightId;
+	}
+
+	public Instant getBookingTime() {
         return bookingTime;
     }
 

@@ -26,4 +26,11 @@ public interface FlightInventoryRepository extends ReactiveMongoRepository<Fligh
             LocalDateTime start,
             LocalDateTime end
     );
+    Flux<FlightInventory> findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+        String from,
+        String to,
+        LocalDateTime start,
+        LocalDateTime end
+        );
 }
+
