@@ -48,12 +48,13 @@ class FlightInventoryServiceTest {
         f.setFlightNumber("AE101");
         f.setPrice(4500);
 
-        when(repo.searchFlights(
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
                 eq("DELHI"),
                 eq("MUMBAI"),
                 any(LocalDateTime.class),
                 any(LocalDateTime.class)
-        )).thenReturn(Flux.just(f));  
+        )).thenReturn(Flux.just(f));
+
 
         List<FlightSearchResponse> result =
                 service.searchFlights(req).collectList().block();
@@ -78,16 +79,21 @@ class FlightInventoryServiceTest {
         f1.setAirlineName("Indigo");
         f1.setFlightNumber("AE101");
         f1.setPrice(4500);
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
+        )).thenReturn(Flux.just(f1));
 
-        when(repo.searchFlights(
-                eq("DELHI"), eq("MUMBAI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
-        )).thenReturn(Flux.just(f1)); 
 
-        when(repo.searchFlights(
-                eq("MUMBAI"), eq("DELHI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
-        )).thenReturn(Flux.empty());  
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
+        )).thenReturn(Flux.empty());
+
 
         List<FlightSearchResponse> result =
                 service.searchFlights(req).collectList().block();
@@ -108,10 +114,13 @@ class FlightInventoryServiceTest {
 
         FlightInventory f = TestData.flightBasic();
 
-        when(repo.searchFlights(
-                eq("DELHI"), eq("MUMBAI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
         )).thenReturn(Flux.just(f));
+
 
         var got =  service.searchFlights(req).collectList().block();
 
@@ -131,10 +140,13 @@ class FlightInventoryServiceTest {
 
         FlightInventory f = TestData.flightBasic();
 
-        when(repo.searchFlights(
-                eq("DELHI"), eq("MUMBAI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
         )).thenReturn(Flux.just(f));
+
 
         var got =  service.searchFlights(req).collectList().block();
 
@@ -154,15 +166,21 @@ class FlightInventoryServiceTest {
 
         FlightInventory f = TestData.flightBasic();
 
-        when(repo.searchFlights(
-                eq("DELHI"), eq("MUMBAI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
         )).thenReturn(Flux.just(f));
 
-        when(repo.searchFlights(
-                eq("MUMBAI"), eq("DELHI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
-        )).thenReturn(Flux.empty());
+
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
+        )).thenReturn(Flux.just(f));
+
 
         var out = service.searchFlights(req).collectList().block();
 
@@ -178,15 +196,21 @@ class FlightInventoryServiceTest {
         r1.setToPlace("DELHI");
         r1.setFlightNumber("AE102");
 
-        when(repo.searchFlights(
-                eq("DELHI"), eq("MUMBAI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
         )).thenReturn(Flux.just(f1));
 
-        when(repo.searchFlights(
-                eq("MUMBAI"), eq("DELHI"),
-                any(LocalDateTime.class), any(LocalDateTime.class)
+
+        when(repo.findByFromPlaceIgnoreCaseAndToPlaceIgnoreCaseAndDepartureTimeBetween(
+                eq("DELHI"),
+                eq("MUMBAI"),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
         )).thenReturn(Flux.just(r1));
+
 
         FlightSearchRequest req = new FlightSearchRequest();
         req.setFromPlace("DELHI");
