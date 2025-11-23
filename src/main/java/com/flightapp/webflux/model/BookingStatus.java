@@ -1,5 +1,5 @@
 package com.flightapp.webflux.model;
 
-public class BookingStatus {
-
+public enum BookingStatus {
+    BOOKED, CANCELLED
 }
