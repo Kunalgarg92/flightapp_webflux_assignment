@@ -18,6 +18,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.support.WebExchangeBindException;
 
 import com.flightapp.webflux.exception.ErrrorResponse;
+import org.springframework.mock.http.MockHttpInputMessage;
+
 import com.flightapp.webflux.exception.GlobalErrorHandler;
 import com.flightapp.webflux.exception.ResourceNotFoundException;
 
@@ -113,6 +115,28 @@ class GlobalErrorHandlerTest {
         assertEquals("Bad Request", err.getError());
         assertEquals("/constraint", err.getPath());
     }
+    
+    @Test
+    void handleNotReadable_withSpecificCause_usesCauseMessage() {
+        GlobalErrorHandler handler = new GlobalErrorHandler();
+
+        HttpMessageNotReadableException ex =
+                new HttpMessageNotReadableException(
+                       "outer",
+                       new RuntimeException("inner-cause"),
+                       (HttpInputMessage) null
+                );
+
+
+        ServerHttpRequest req = MockServerHttpRequest.post("/test").build();
+
+        ResponseEntity<ErrrorResponse> response =
+                handler.handleNotReadable(ex, req);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("inner-cause", response.getBody().getMessage());
+    }
+
 
     @Test
     void handleNotReadable_withoutSpecificCause_usesDefaultMessage() {
@@ -133,7 +157,7 @@ class GlobalErrorHandlerTest {
         assertEquals("/not-readable", err.getPath());
         assertEquals("bad json", err.getMessage());
     }
-
+    
     @Test
     void handleIllegalArg_returnsBadRequest() {
         IllegalArgumentException ex =

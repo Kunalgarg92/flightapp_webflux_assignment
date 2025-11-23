@@ -22,8 +22,7 @@ import org.springframework.web.bind.support.WebExchangeBindException;
 
 @RestControllerAdvice
 public class GlobalErrorHandler {
-	
-
+	  private static final String BAD_REQUEST = "Bad Request";
 	@ExceptionHandler(WebExchangeBindException.class)
 	public ResponseEntity<Object> handleWebFluxValidation(WebExchangeBindException ex, ServerHttpRequest request) {
 
@@ -39,7 +38,7 @@ public class GlobalErrorHandler {
 
 	    ErrrorResponse body = new ErrrorResponse(
 	            HttpStatus.BAD_REQUEST.value(),
-	            "Bad Request",
+	            BAD_REQUEST ,
 	            joined,
 	            request.getURI().getPath()
 	    );
@@ -70,7 +69,7 @@ public class GlobalErrorHandler {
 
         ErrrorResponse body = new ErrrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Bad Request",
+                BAD_REQUEST ,
                 joined,
                 request.getURI().getPath()
 
@@ -90,7 +89,7 @@ public class GlobalErrorHandler {
                 .collect(Collectors.joining("; "));
         ErrrorResponse body = new ErrrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Bad Request",
+                BAD_REQUEST ,
                 msg,
                 request.getURI().getPath()
 
@@ -98,18 +97,28 @@ public class GlobalErrorHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    private static final String MALFORMED_JSON = "Malformed JSON or invalid field type";
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrrorResponse> handleNotReadable(HttpMessageNotReadableException ex,ServerHttpRequest request) {
-    	String msg = "Malformed JSON or invalid field type";
-        if (ex.getMostSpecificCause() != null) {
-            msg = ex.getMostSpecificCause().getMessage();
+    public ResponseEntity<ErrrorResponse> handleNotReadable(
+            HttpMessageNotReadableException ex, ServerHttpRequest request) {
+        
+        Throwable root = ex.getMostSpecificCause();
+        String msg;
+
+        if (root == null || root.getMessage() == null || root.getMessage().isBlank()) {
+            msg = MALFORMED_JSON;
+        } else {
+            msg = root.getMessage();
         }
+
         ErrrorResponse body = new ErrrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Bad Request",
+                BAD_REQUEST,
                 msg,
                 request.getURI().getPath()
         );
+
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
@@ -117,7 +126,7 @@ public class GlobalErrorHandler {
     public ResponseEntity<ErrrorResponse> handleIllegalArg(IllegalArgumentException ex,ServerHttpRequest request) {
         ErrrorResponse body = new ErrrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Bad Request",
+                BAD_REQUEST ,
                 ex.getMessage(),
                 request.getURI().getPath()
         );
