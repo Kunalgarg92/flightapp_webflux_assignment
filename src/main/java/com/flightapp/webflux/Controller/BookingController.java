@@ -18,7 +18,7 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping("/booking/{flightId}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED) 
     public Mono<BookingResponse> book(
             @PathVariable String flightId,
             @Valid @RequestBody BookingRequest request) {

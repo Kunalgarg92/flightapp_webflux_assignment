@@ -18,7 +18,7 @@ public class SearchController {
     private FlightInventoryService service;
 
     @PostMapping("/search")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED) 
     public Flux<FlightSearchResponse> search(
             @Valid @RequestBody FlightSearchRequest request) {
 
